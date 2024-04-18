@@ -1,0 +1,219 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Using a file manage service",
+        "title": "File manage service API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/v1",
+    "paths": {
+        "/asset/history": {
+            "get": {
+                "description": "Show all file upload history",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "asset"
+                ],
+                "summary": "Show history",
+                "operationId": "history",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v1.historyResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.response"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth": {
+            "post": {
+                "description": "Auth a user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Auth",
+                "operationId": "auth",
+                "parameters": [
+                    {
+                        "description": "request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/v1.doAuthResponse"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v1.doAuthResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.response"
+                        }
+                    }
+                }
+            }
+        },
+        "/del-asset/:assetName": {
+            "delete": {
+                "description": "Delete asset",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "asset"
+                ],
+                "summary": "Delete asset",
+                "operationId": "del-asset",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v1.doDeleteResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.response"
+                        }
+                    }
+                }
+            }
+        },
+        "/upload-asset/:assetName": {
+            "post": {
+                "description": "Upload a data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "upload"
+                ],
+                "summary": "Upload",
+                "operationId": "do-upload",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v1.doUploadResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.response"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "v1.doAuthResponse": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "v1.doDeleteResponse": {
+            "type": "object",
+            "properties": {
+                "Status": {
+                    "type": "string"
+                }
+            }
+        },
+        "v1.doUploadResponse": {
+            "type": "object",
+            "properties": {
+                "Status": {
+                    "type": "string"
+                }
+            }
+        },
+        "v1.historyResponse": {
+            "type": "object",
+            "properties": {
+                "History": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/v1.historyResponseAsset"
+                    }
+                }
+            }
+        },
+        "v1.historyResponseAsset": {
+            "type": "object",
+            "properties": {
+                "assetName": {
+                    "type": "string"
+                },
+                "created": {
+                    "type": "string"
+                }
+            }
+        },
+        "v1.response": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "example": "message"
+                }
+            }
+        }
+    }
+}
